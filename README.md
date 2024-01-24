@@ -1,46 +1,24 @@
-# Render Virtualized
+# Optimizing Virtual Rendering
+Setting Up the Interview Environment
+Candidates are permitted to utilize Google or any form of assistance during this assessment.
+Ideally, candidates are allocated 1 hour for completion, but they can take as much time as needed.
+The code execution can take place in the candidate's development environment or use the provided Live Environment as a starting point (refer to the Live Environment section below).
+# Overview
+The objective of this exercise is to efficiently render every English word in a single, scrollable list, ensuring optimal performance.
 
-## Interview Environment Setup
+In the App.tsx file, a useDictionary() hook is already implemented. This hook fetches the complete dictionary and returns it as an array. However, with nearly 400K words, directly rendering them all to the DOM at once could potentially crash the web browser. To prevent this, there's a component called <SafelyRenderChildren/> that imposes a limit on the number of children that can be rendered, safeguarding against any risk of crashing during the interview.
 
-- Candidate is allowed to use google or any kind of assistance to complete this assessment
-- Candidate is ideally given 1 hour time to complete the assessment, however, they can take as much time as they'd like.
-- Candidate can execute the code within their own environment for development or use the Live Environment as a Starter (Check Live Environment section below)
+# Understanding Virtualization
+In client-side development, virtualization involves rendering only essential elements for a seamless user experience while discarding off-screen elements. Rather than rendering all 500K list items, initially, only 500 items are displayed. As the user scrolls, list items are progressively added or removed, aiming to create a seamless user experience.
 
-## Overview
-
-The goal of this exercise, is to render every word in the English language in a single, scrollable, performant list.
-
-In our `App.tsx` file, there's a hook already written for `useDictionary()`. This hook will fetch the entire dictionary and return it in a nice array.
-
-This dictionary has nearly 400K words in it, far too many elements to write to the DOM at once. In fact, it will almost certainly crash your web browser. For this reason, there's a component called `<SafelyRenderChildren/>`. This component will put an artificial limit on the amount of children you can render at once, to ensure that there's no chance of crashing the interview :)
-
-## What is virtualization?
-
-Virtualization in client-side development, deals with the concept of only rendering elements that are critical for providing a seamless user experience, and culling every element that is off the screen.
-
-So instead of rendering 500K list items, we might start with only rendering 500 items, and then progressively adding/removing list items as the user scrolls.
-
-The goal is to deliver a user experience that feels as seamless as possible.
-
-## Goals
-
-1. When loading the page, we should see a list that is filled with words, the scrollbar should be as long as the entirety of the dictionary, appearing as if every word is already present in the list.
-2. Scrolling using the mousewheel should feel completely seamless. The elements should stay positioned correctly and not jump around as elements load/unload.
-3. We should be able to drag the scrollbar to any position in the list and have the correct items be visible.
-
-## Stretch Goals
-
-1. Add a search box to the list.
-
-## Parameters
-
-- Each list item has a known height (30px)
-- `<SafelyRenderChildren/>` limits the maximum list items to 2,500
-- The amount of items you render at one time is completely up to you, and should be tuned for a balance of performance and usibility (we want no visual evidence of loading when mousewheel scrolling, and minimal evidence of loading when scrolling large distances at one time)
-- There is an optional included `useScrollPosition` hook that you can use to quickly get the current scroll position.
-
-## Live Environment
-
-https://codesandbox.io/s/fulflld-render-virtualized-c1iv20?file=/README.md
-# FULFLLD
-# FULFLLD
+# Goals
+Upon loading the page, a list filled with words should be visible, and the scrollbar should span the entire dictionary length, creating an illusion of every word already present.
+Scrolling using the mouse wheel should feel smooth, with elements maintaining correct positions without jumping around as items load/unload.
+Dragging the scrollbar to any position should display the correct items.
+# Stretch Goals
+Implement a search box within the list.
+# Parameters
+- Each list item has a fixed height of 30px.
+<SafelyRenderChildren/> limits the maximum list items to 2,500.
+- The number of items rendered at once is at the candidate's discretion, aiming for a balance between performance and usability. Visual evidence of loading should be minimal during both mouse wheel scrolling and large-distance scrolling.
+An optional useScrollPosition hook is included for quickly obtaining the current scroll position.
